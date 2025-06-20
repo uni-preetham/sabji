@@ -16,7 +16,8 @@ services:
     restart: always
     ports:
       - "3000:3000"
-    
+    environment:
+      - MONGO_URI=mongodb+srv://preethamananthu:2J6mAF3t86tJMUBG@sabji.jz83s86.mongodb.net/sabji?retryWrites=true&w=majority&appName=Sabji
     depends_on:
       - mongo
 

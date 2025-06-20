@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-// const API_URL = process.env.REACT_APP_API_URL;
-const API_URL = "http://localhost:3000/items"; // Replace with your actual API URL
+const API_URL = process.env.REACT_APP_API_URL;
 console.log("API URL:", API_URL);
 
 function App() {
