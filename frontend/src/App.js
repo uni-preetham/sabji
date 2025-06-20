@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 
-const API_URL = "https://docker-node-app-uymg.onrender.com/items";
+const API_URL = process.env.REACT_APP_API_URL;
+console.log("API URL:", API_URL);
 
 function App() {
   const [items, setItems] = useState([]);
