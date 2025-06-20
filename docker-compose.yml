@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  mongo:
+    image: mongo:7
+    container_name: mongo
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+  app:
+    build: .
+    container_name: docker-node-app
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      - MONGO_URI=mongodb+srv://preethamananthu:2J6mAF3t86tJMUBG@sabji.jz83s86.mongodb.net/sabji?retryWrites=true&w=majority&appName=Sabji
+    depends_on:
+      - mongo
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: react-frontend
+    restart: always
+    ports:
+      - "3001:3000"
+
+volumes:
+  mongo-data:
