@@ -11,7 +11,8 @@ services:
       - mongo-data:/data/db
 
   app:
-    build: .
+    build: 
+      context: ./backend
     container_name: docker-node-app
     restart: always
     ports:
@@ -24,6 +25,8 @@ services:
   frontend:
     build:
       context: ./frontend
+      args:
+        - NEXT_PUBLIC_API_URL=http://localhost:3000/items
     container_name: react-frontend
     restart: always
     ports:

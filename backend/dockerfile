@@ -1,14 +1,12 @@
 FROM node:24
 
 # Copy package.json and package-lock.json
-COPY package*.json /dockernode/
+COPY package*.json /backend/
 # Copy the rest of the application files
-COPY src /dockernode/src
+COPY src /backend/src
 # Set the working directory
-WORKDIR /dockernode
+WORKDIR /backend
 # Install dependencies
 RUN npm install
-
-EXPOSE 3000
 
 CMD ["node", "src/index.js"]

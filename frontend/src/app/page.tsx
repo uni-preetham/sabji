@@ -1,27 +1,29 @@
+"use client";
+
 import React, { useEffect, useState } from "react";
 
-const API_URL = process.env.REACT_APP_API_URL;
-console.log("API URL:", API_URL);
+const API_URL = process.env.NEXT_PUBLIC_API_URL as string;
 
-function App() {
+export default function Home() {
   const [items, setItems] = useState([]);
   const [form, setForm] = useState({ name: "", quantity: "" });
-  const [editingId, setEditingId] = useState(null);
+  const [editingId, setEditingId] = useState<string | null>(null);
 
-  // Fetch items
   useEffect(() => {
+    if (!API_URL) {
+      console.error("API_URL is not defined");
+      return;
+    }
     fetch(API_URL)
       .then((res) => res.json())
       .then(setItems);
   }, []);
 
-  // Handle form input
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  // Add or update item
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const method = editingId ? "PUT" : "POST";
     const url = editingId ? `${API_URL}/${editingId}` : API_URL;
@@ -31,22 +33,19 @@ function App() {
       body: JSON.stringify({ name: form.name, quantity: Number(form.quantity) }),
     })
       .then((res) => res.json())
-      .then((data) => {
+      .then(() => {
         setForm({ name: "", quantity: "" });
         setEditingId(null);
-        // Refresh items
         return fetch(API_URL).then((res) => res.json()).then(setItems);
       });
   };
 
-  // Edit item
-  const handleEdit = (item) => {
-    setForm({ name: item.name, quantity: item.quantity });
+  const handleEdit = (item: { _id: string; name: string; quantity: number }) => {
+    setForm({ name: item.name, quantity: item.quantity.toString() });
     setEditingId(item._id);
   };
 
-  // Delete item
-  const handleDelete = (id) => {
+  const handleDelete = (id: string) => {
     fetch(`${API_URL}/${id}`, { method: "DELETE" })
       .then(() => fetch(API_URL).then((res) => res.json()).then(setItems));
   };
@@ -78,7 +77,7 @@ function App() {
         )}
       </form>
       <ul>
-        {items.map((item) => (
+        {items.map((item: { _id: string; name: string; quantity: number }) => (
           <li key={item._id}>
             {item.name} ({item.quantity}){" "}
             <button onClick={() => handleEdit(item)}>Edit</button>{" "}
@@ -89,5 +88,3 @@ function App() {
     </div>
   );
 }
-
-export default App;
