@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL as string;
+const API_URL = process.env.API_URL as string;
 
 export default function Home() {
   const [items, setItems] = useState([]);
