@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL as string || "https://docker-node-app-uymg.onrender.com";
+const API_URL = process.env.NEXT_PUBLIC_API_URL as string || "https://docker-node-app-uymg.onrender.com/items";
 
 export default function Home() {
   const [items, setItems] = useState([]);
