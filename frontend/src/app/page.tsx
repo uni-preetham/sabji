@@ -52,7 +52,7 @@ export default function Home() {
 
   return (
     <div style={{ maxWidth: 500, margin: "2rem auto" }}>
-      <h2>Items CRUD</h2>
+      <h2 className="text-blue-400">Sabji To-Do</h2>
       <form onSubmit={handleSubmit} style={{ marginBottom: "2rem" }}>
         <input
           name="name"
